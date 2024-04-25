@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Water Management</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #4d7c8a, #93afc5);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section-header {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        }
+        .w3-bar {
+            background-color: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .w3-bar a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .w3-bar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        #displayVariables {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="w3-bar">
+        <a href="#data" class="w3-button">Data</a>
+        <a href="#graph" class="w3-button">Graph</a>
+    </nav>
+
+    <section id="data">
+        <h2 class="section-header">Data</h2>
+        <input type="file" id="excelFileInput" onchange="loadExcelData()">
+        <div id="displayVariables"></div>
+    </section>
+
+    <section id="graph">
+        <h2 class="section-header">Graph</h2>
+        <div id="line_top_x"></div>
+    </section>
+</div>
+
+<script>
+    var dataVariables = {};
+
+    var displayVariables = document.getElementById("displayVariables");
+
+    function loadExcelData() {
+        var fileInput = document.getElementById('excelFileInput');
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, {type: 'array'});
+            var sheetName = workbook.SheetNames[0];
+            var sheet = workbook.Sheets[sheetName];
+            var jsonData = XLSX.utils.sheet_to_json(sheet, {header: 1});
+
+            displayVariables.innerHTML = ""; 
+            for (var i = 0; i < jsonData.length; i++) {
+                var p = document.createElement("p");
+                // Start from index 1 to ignore the first column of text
+                p.textContent = "Day " + (i + 1) + ": " + jsonData[i].slice(1).join(", ");
+                displayVariables.appendChild(p);
+            }
+
+            drawChart(jsonData);
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    google.charts.load('current', {'packages':['line']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart(data) {
+        var chartData = new google.visualization.DataTable();
+        chartData.addColumn('number', 'Day');
+        chartData.addColumn('number', 'Week 1');
+        chartData.addColumn('number', 'Week 2');
+        chartData.addColumn('number', 'Week 3');
+        chartData.addRows(data);
+
+        var options = {
+            chart: {
+                title: 'Amount of water spent in 3 weeks',
+                subtitle: 'in litres (L)'
+            },
+            width: 900,
+            height: 500,
+            axes: {
+                x: {
+                    0: {side: 'top'}
+                }
+            }
+        };
+
+        var chart = new google.charts.Line(document.getElementById('line_top_x'));
+        chart.draw(chartData, google.charts.Line.convertOptions(options));
+    }
+</script>
+
+</body>
+</html>
