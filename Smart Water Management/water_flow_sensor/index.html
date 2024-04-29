@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings and Weather</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="background-image">
+        <div class="overlay"></div> <!-- Overlay for gradient -->
+    </div>
+    <div class="card" id="left-card">
+        <a href="http://192.168.45.114/" target="_blank">Water usage</a>
+        <p>Total volume of water used - 2ml</p>
+        <p>Total water usage this month - 1L</p>
+        <p>Limit of water to use this month - 3L</p>
+        <p>Within limit!!</p>
+    </div>
+    <div class="content">
+        <div class="greeting-container">
+            <h1 id="greeting"></h1>
+            <p id="thought">save water</p> <!-- Additional thought -->
+        </div>
+        <p id="weather"></p>
+        <p id="location"></p>
+    </div>
+    <div class="card" id="right-card">
+        <a href="http://192.168.45.114/" target="_blank">Water used by individual outlets this month</a>
+        <p>shower - 400ml</p>
+        <p>kitchen - 300ml</p>
+        <p>garden - 300ml</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
