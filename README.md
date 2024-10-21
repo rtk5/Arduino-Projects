@@ -1,6 +1,6 @@
 # Arduino Projects
 
-![Arduino Projects]([https://placehold.co/600x300.png?text=Arduino+Projects](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuRtiofGMlVqJImLJerL8ii7M7-VkVcsFjg5j6theeHxaD5AsCYr5cVyM5qOs3n3Fjxrg&usqp=CAU))
+![Arduino Projects](https://nyerekatech.com/wp-content/uploads/2019/10/arduino.jpg)
 
 Welcome to the **Arduino Projects** repository! This collection showcases various Arduino-based projects that you can build and modify for learning, prototyping, or inspiration.
 
