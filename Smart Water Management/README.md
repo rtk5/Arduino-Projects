@@ -55,6 +55,11 @@ The **Smart Water Management** system is designed to monitor water usage in real
 ## License
 This project is licensed under the MIT License 
 
-## Author
+## Team members
 **Rithvik Matta** - [GitHub Profile](https://github.com/rtk5)
+**Rishi A Sheth** - [GitHub Profile](https://github.com/RishiASheth)
+**Rishil** 
+**Rithish Bharath** 
+
+
 
